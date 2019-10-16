@@ -30,6 +30,21 @@ var projection = d3.geo.equirectangular()
     .translate([width / 2, height / 2])
     .precision(.1);
 
+//パスジェネレーター
+var path = d3.geo.path().projection(projection);
+//グリッド線追加    
+var graticule = d3.geo.graticule();
+var grid = svg.append("path")
+    .datum(graticule)
+    .attr({
+        "class": "graticule",
+        "d": path,
+        "fill": "none",
+        "stroke": "#777",
+        "stroke-width": ".5px",
+        "stroke-opacity": .5
+    });
+
 d3.json("data/hip.json", function(error, catalogue) 
 {
    if (error) throw error;
