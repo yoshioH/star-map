@@ -2,6 +2,8 @@
 import os
 import json
 
+MAGNITUDE_LOWER_LIMIT = 7.0
+
 def fileIn():
     data = list()
     with open('./data/hip_main.dat') as lines:
@@ -20,12 +22,17 @@ def fileIn():
 def filterAndParse(data):
     ret = list()
     for datum in data:
-        if len(datum['vMag']) < 1 or float(datum['vMag']) > 3:
+        if len(datum['vMag']) < 1 or float(datum['vMag']) > MAGNITUDE_LOWER_LIMIT:
             continue
-        vMag = float(datum['vMag'])
-        raDeg = float(datum['raDeg']) if float(datum['raDeg']) <= 180 else (180 - (float(datum['raDeg']) - 180))* -1
-        decDeg = float(datum['decDeg'])
-        bvColor = float(datum['bvColor'])
+        try:
+            vMag = float(datum['vMag'])
+            raDeg = float(datum['raDeg']) if float(datum['raDeg']) <= 180 else (180 - (float(datum['raDeg']) - 180))* -1
+            decDeg = float(datum['decDeg'])
+            bvColor = float(datum['bvColor'])
+        except ValueError:
+            # パースに失敗した場合はスキップ
+            print(json.dumps(datum))
+            continue
 
         # D3がGeoJSONの形式で受け取る関係上、赤緯と赤経を配列として格納している
         # Web側でキレイに整形してあげるのがいいんだろうけど、めんどくさいのでここで帳尻を合わせる。
