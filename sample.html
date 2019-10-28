@@ -54,52 +54,18 @@ var grid = svg.append("path")
 // 描画の定義
 var pointRadius = function(d)
 {
-    if (d[2]['vMag'] < 1) 
-    {
-        return 1.6;
-    } else if (d[2]['vMag'] < 2) 
-    {
-        return 1.2;
-    } else if (d[2]['vMag'] < 3) 
-    {
-        return 1.0;
-    } else if (d[2]['vMag'] < 4) 
-    {
-        return 0.8;
-    } else if (d[2]['vMag'] < 5) 
-    {
-        return 0.6;
-    } else if (d[2]['vMag'] < 6) 
-    {
-        return 0.4;
-    }
+    if (d[2]['vMag'] < 1) return 1.6;
+    if (d[2]['vMag'] < 2) return 1.2;
+    if (d[2]['vMag'] < 3) return 1.0;
+    if (d[2]['vMag'] < 4) return 0.8;
+    if (d[2]['vMag'] < 5) return 0.6;
+    if (d[2]['vMag'] < 6) return 0.4;
     return 0.2
 };
 var pointColor = function(d)
 {
-    var opacity = 0.2;
-    if (d[2]['vMag'] < 1) 
-    {
-        opacity = 1;
-    } else if (d[2]['vMag'] < 2) 
-    {
-        opacity = 1;
-    } else if (d[2]['vMag'] < 3) 
-    {
-        opacity = 0.8;
-    } else if (d[2]['vMag'] < 4) 
-    {
-        opacity = 0.5;
-    } else if (d[2]['vMag'] < 5) 
-    {
-        opacity = 0.4;
-    } else if (d[2]['vMag'] < 6) 
-    {
-        opacity = 0.3;
-    }
-    return "rgba(240, 240, 100, " + Math.pow(d[2]['vMag'], -1) + ")"; 
+    return "rgba(240, 240, 100, " + Math.pow(d[2]['vMag'], -0.7) + ")"; 
 };
-
 // 座標にマッピング
 d3.json("data/hip.json", function(error, catalogue) 
 {
