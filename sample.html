@@ -52,6 +52,14 @@ var grid = svg.append("path")
     });
 
 // 描画の定義
+var positionX = function(d) 
+{
+    return projection(d)[0]; 
+};
+var positionY = function(d) 
+{
+    return projection(d)[1]; 
+}
 var pointRadius = function(d)
 {
     if (d[2]['vMag'] < 1) return 1.6;
@@ -76,9 +84,9 @@ d3.json("data/hip.json", function(error, catalogue)
         .enter()
         .append("circle")
         .attr({
-            "cx":function(d) { return projection(d)[0]; },
-            "cy":function(d) { return projection(d)[1]; },
-            "r":pointRadius,
+            "cx":positionX,
+            "cy":positionY,
+            "r" :pointRadius,
             "fill":pointColor
         });
 });
