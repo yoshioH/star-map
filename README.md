@@ -60,4 +60,7 @@ Use the Index ... Luke....
 
 って思ったけど、B-V色指数と色の相関で決め打ちで色を出すに止める。
 
+![B-V 色指数の値と対応する色](https://astro-dic.jp/wp/wp-content/uploads/color_index-2.gif)  
+出典：公益社団法人 日本天文学会 天文辞典
+
 ## 
