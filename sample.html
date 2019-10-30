@@ -72,7 +72,22 @@ var pointRadius = function(d)
 };
 var pointColor = function(d)
 {
-    return "rgba(240, 240, 100, " + Math.pow(d[2]['vMag'], -0.7) + ")"; 
+    var opacity = Math.pow(d[2]['vMag'], -0.7);
+    var xr = "F0";
+    var xg = "F0";
+    var xb = "64";
+    if      (d[2]['bvColor'] < -0.3 ) {xr="00";xg="00";xb="FF";}
+    else if (d[2]['bvColor'] < -0.16) {xr="00";xg="00";xb="FF";}
+    else if (d[2]['bvColor'] <  0.15) {xr="00";xg="50";xb="D0";}
+    else if (d[2]['bvColor'] <  0.45) {xr="00";xg="70";xb="B0";}
+    else if (d[2]['bvColor'] <  0.68) {xr="D0";xg="D0";xb="10";}
+    else if (d[2]['bvColor'] <  1.15) {xr="FF";xg="8C";xb="00";}
+    else if (d[2]['bvColor'] <  1.6 ) {xr="FF";xg="45";xb="00";}
+    else                              {xr="FF";xg="00";xb="00";}
+    var r = parseInt(xr, 16);
+    var g = parseInt(xg, 16);
+    var b = parseInt(xb, 16);
+    return "rgba("+r+","+g+","+b+"," + Math.pow(d[2]['vMag'], -0.7) + ")"; 
 };
 // 座標にマッピング
 d3.json("data/hip.json", function(error, catalogue) 

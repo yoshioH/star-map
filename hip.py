@@ -14,6 +14,7 @@ def fileIn():
                 'vMag' : datum[5].strip(),
                 'raDeg' : datum[8].strip(),
                 'decDeg' : datum[9].strip(),
+                'parallax' : datum[11].strip(),
                 'bvColor' : datum[37].strip()
             }
             data.append(tmp)
@@ -28,6 +29,7 @@ def filterAndParse(data):
             vMag = float(datum['vMag'])
             raDeg = float(datum['raDeg']) if float(datum['raDeg']) <= 180 else (180 - (float(datum['raDeg']) - 180))* -1
             decDeg = float(datum['decDeg'])
+            parallax = float(datum['parallax'])
             bvColor = float(datum['bvColor'])
         except ValueError:
             # パースに失敗した場合はスキップ
@@ -40,18 +42,12 @@ def filterAndParse(data):
         tmp = list()
         option = {
             'vMag':vMag,
+            'parallax':parallax,
             'bvColor':bvColor
         }
         tmp.append(-1*raDeg)#地球儀の反対面からみる感じ。反転させる
         tmp.append(decDeg)
         tmp.append(option)
-        # tmp = {
-        #     'hipNum' : datum['hipNum'],
-        #     'vMag' : vMag,
-        #     'raDeg' : raDeg,
-        #     'decDeg' : decDeg,
-        #     'bvColor' : bvColor
-        # }
         ret.append(tmp)
     return ret
 
