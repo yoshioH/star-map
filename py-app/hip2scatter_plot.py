@@ -4,8 +4,6 @@ import json
 
 import hip
 
-MAGNITUDE_LOWER_LIMIT = 7.0
-
 def lineToDatum(line):
     datum = line.split('|')
     tmp = {
@@ -21,7 +19,7 @@ def lineToDatum(line):
 def vMagFilterAndParse(data):
     ret = list()
     for datum in data:
-        if len(datum['vMag']) < 1 or float(datum['vMag']) > MAGNITUDE_LOWER_LIMIT:
+        if len(datum['vMag']) < 1:
             continue
         try:
             vMag = float(datum['vMag'])
