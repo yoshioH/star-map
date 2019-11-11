@@ -4,19 +4,23 @@ import json
 
 MAGNITUDE_LOWER_LIMIT = 7.0
 
-def fileIn():
+def lineToDatum(line):
+    datum = line.split('|')
+    tmp = {
+        'hipNum' : datum[1].strip(),
+        'vMag' : datum[5].strip(),
+        'raDeg' : datum[8].strip(),
+        'decDeg' : datum[9].strip(),
+        'parallax' : datum[11].strip(),
+        'bvColor' : datum[37].strip()
+    }
+    return tmp
+
+def fileIn(toDatum, srcPath):
     data = list()
-    with open('./data/hip_main.dat') as lines:
+    with open(srcPath) as lines:
         for line in lines:
-            datum = line.split('|')
-            tmp = {
-                'hipNum' : datum[1].strip(),
-                'vMag' : datum[5].strip(),
-                'raDeg' : datum[8].strip(),
-                'decDeg' : datum[9].strip(),
-                'parallax' : datum[11].strip(),
-                'bvColor' : datum[37].strip()
-            }
+            tmp = toDatum(line)
             data.append(tmp)
     return data
 
@@ -51,15 +55,15 @@ def filterAndParse(data):
         ret.append(tmp)
     return ret
 
-def jsonFileOut(data):
-    with open('./data/hip.json', mode='w') as f:
+def jsonFileOut(dstPath, data):
+    with open(dstPath, mode='w') as f:
         f.write('{"data":')
         f.write(json.dumps(data))
         f.write('}')
 
 if __name__ == '__main__':
     # 効率は悪いけど、ひとつづつステップを踏んだ処理をします（趣味のプログラミングだしね）
-    data = fileIn()
+    data = fileIn(lineToDatum, '../data/hip_main.dat')
     data = filterAndParse(data)
-    jsonFileOut(data)
+    jsonFileOut('../data/hip.json', data)
 
