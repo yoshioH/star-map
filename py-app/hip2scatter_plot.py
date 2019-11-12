@@ -2,6 +2,7 @@
 import os
 import json
 
+import calc
 import hip
 
 def lineToDatum(line):
@@ -56,7 +57,6 @@ def absMagFilterAndParse(data):
     return ret
 
 if __name__ == '__main__':
-    # 効率は悪いけど、ひとつづつステップを踏んだ処理をします（趣味のプログラミングだしね）
     data = hip.fileIn(lineToDatum, '../data/hip_main.dat')
     vmagData = vMagFilterAndParse(data)
     # absMagData = absMagFilterAndParse(data)
