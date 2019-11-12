@@ -19,7 +19,7 @@ def parallax_to_abs_mag(mag, parallax_milliarcseconds):
     return mag + 5 * (math.log(parallax, 10) + 1.0)
 
 # 距離(パーセク)で絶対等級を算出
-def abs_mag_by_distance(mag, distance):
+def abs_mag_by_parsec(mag, distance):
     return mag - 5 * (math.log(distance, 10) - 1)
 
 # 視差からパーセクに変換する
@@ -31,5 +31,5 @@ absMag = parallax_to_abs_mag(hipdata['vMag'], hipdata['parallax'])
 print(absMag)
 
 distance = parallax_to_parsec(hipdata['parallax'])
-absMag = abs_mag_by_distance(hipdata['vMag'], distance)
+absMag = abs_mag_by_parsec(hipdata['vMag'], distance)
 print(absMag)
