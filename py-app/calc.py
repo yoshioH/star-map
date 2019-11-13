@@ -16,11 +16,11 @@ def milliarcsecond_to_arcsecond(milliarcseconds):
 # 視差から絶対等級を産出する
 def parallax_to_abs_mag(mag, parallax_milliarcseconds):
     parallax = milliarcsecond_to_arcsecond(parallax_milliarcseconds)
-    return mag + 5 * (math.log(parallax, 10) + 1.0)
+    return round(mag + 5 * (math.log(parallax, 10) + 1.0), 2)
 
 # 距離(パーセク)で絶対等級を算出
 def abs_mag_by_parsec(mag, distance):
-    return mag - 5 * (math.log(distance, 10) - 1)
+    return round(mag - 5 * (math.log(distance, 10) - 1), 2)
 
 # 視差からパーセクに変換する
 def parallax_to_parsec(parallax):

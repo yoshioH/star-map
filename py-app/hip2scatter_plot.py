@@ -39,20 +39,22 @@ def vMagFilterAndParse(data):
 def absMagFilterAndParse(data):
     ret = list()
     for datum in data:
-        if len(datum['vMag']) < 1 or len(datum['parallax']) < 1 or datum['parallax'] == 0:
+        if len(datum['vMag']) < 1 or len(datum['parallax']) < 1:
             continue
         try:
             vMag = float(datum['vMag'])
             parallax = float(datum['parallax'])
             bvColor = float(datum['bvColor'])
-            parsec = calc.parallax_to_parsec(parallax)
-            absMag = calc.abs_mag_by_parsec(vMag, parsec)
+            # parsec = calc.parallax_to_parsec(parallax)
+            # absMag = calc.abs_mag_by_parsec(vMag, parsec)
+            absMag = calc.parallax_to_abs_mag(vMag, parallax)
         except ValueError:
             # パースに失敗した場合はスキップ
-            print('value error : ' + json.dumps(datum))
+            # print('value error : ' + json.dumps(datum))
             continue
         except ZeroDivisionError:
-            print('zero divisions : ' + json.dumps(datum))
+            # print('zero divisions : ' + json.dumps(datum))
+            continue
         tmp = {
             'absMag':absMag,
             'bvColor':bvColor
@@ -62,8 +64,8 @@ def absMagFilterAndParse(data):
 
 if __name__ == '__main__':
     data = hip.fileIn(lineToDatum, '../data/hip_main.dat')
-    vmagData = vMagFilterAndParse(data)
+    # vmagData = vMagFilterAndParse(data)
+    # hip.jsonFileOut('../data/vmag_scatter-plot.json', vmagData)
     absMagData = absMagFilterAndParse(data)
-    hip.jsonFileOut('../data/vmag_scatter-plot.json', vmagData)
-    hip.jsonFileOut('../data/absmag_scatter-plot.json', vmagData)
+    hip.jsonFileOut('../data/absmag_scatter-plot.json', absMagData)
 
