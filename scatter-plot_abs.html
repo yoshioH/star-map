@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Magnitude Scatter Plot</title>
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
+    <script src="/scripts/d3.v5.min.js"></script>
+  </head>
+
+<body>
+    <script>
+        var width = 1600;
+        var height = 800;
+        var margin = { "top": 45, "bottom": 45, "right": 45, "left": 75 };
+
+        // 2. SVG領域の設定
+        var svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
+
+        // 座標にマッピング
+        d3.json("data/absmag_scatter-plot.json")
+        .then(function (catalogue) {
+            // 3. スケールの設定
+            var xScale = d3.scaleLinear()
+                .domain([d3.min(catalogue.data, function (d) { return d.bvColor; }), d3.max(catalogue.data, function (d) { return d.bvColor; })])
+                .range([margin.left, width - margin.right]);
+            var yScale = d3.scaleLinear()
+                .domain([d3.min(catalogue.data, function (d) { return d.absMag; }), d3.max(catalogue.data, function (d) { return d.absMag; })])
+                .range([height - margin.bottom, margin.top]);
+
+            // 4. スケールの表示
+            var axisx = d3.axisBottom(xScale).ticks(5);
+            var axisy = d3.axisLeft(yScale).ticks(5);
+            svg.append("g")
+                .attr("transform", "translate(" + 0 + "," + (height - margin.bottom) + ")")
+                .call(axisx)
+                .append("text")
+                .attr("fill", "black")
+                .attr("x", (width - margin.left - margin.right) / 2 + margin.left)
+                .attr("y", 35)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "10pt")
+                .attr("font-weight", "bold")
+                .text("B-V色指数");
+
+            svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + 0 + ")")
+                .call(axisy)
+                .append("text")
+                .attr("fill", "black")
+                .attr("x", -(height - margin.top - margin.bottom) / 2 - margin.top)
+                .attr("y", -35)
+                .attr("transform", "rotate(-90)")
+                .attr("text-anchor", "middle")
+                .attr("font-weight", "bold")
+                .attr("font-size", "10pt")
+                .text("等級");
+
+            // 5. プロットの表示
+            svg.append("g")
+                .selectAll("circle")
+                .data(catalogue.data)
+                .enter()
+                .append("circle")
+                .attr("cx", function (d) { return xScale(d.bvColor); })
+                .attr("cy", function (d) { return yScale(d.absMag); })
+                .attr("fill", "steelblue")
+                .attr("opacity", 0.2)
+                .attr("r", 1);
+        }).catch(function(error){
+            if (error != null) throw error;
+        });
+    </script>
+</body>
+
+</html>
