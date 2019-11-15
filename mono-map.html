@@ -70,17 +70,14 @@ var pointRadius = function(d)
     if (d[2]['vMag'] < 6) return 0.4;
     return 0.2
 };
-var pointColor = function(d)
-{
-    var opacity = Math.pow(d[2]['vMag'], -0.7);
-    var xr = "F0";
-    var xg = "F0";
-    var xb = "64";
-    var r = parseInt(xr, 16);
-    var g = parseInt(xg, 16);
-    var b = parseInt(xb, 16);
-    return "rgba("+r+","+g+","+b+"," + Math.pow(d[2]['vMag'], -0.7) + ")"; 
-};
+var opacity = Math.pow(d[2]['vMag'], -0.7);
+var xr = "F0";
+var xg = "F0";
+var xb = "64";
+var r = parseInt(xr, 16);
+var g = parseInt(xg, 16);
+var b = parseInt(xb, 16);
+var pointColor = "rgba("+r+","+g+","+b+"," + Math.pow(d[2]['vMag'], -0.7) + ")";
 // 座標にマッピング
 d3.json("data/hip.json", function(error, catalogue) 
 {
