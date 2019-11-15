@@ -4,6 +4,7 @@ import json
 
 import calc
 import hip
+import static-star-data
 
 def lineToDatum(line):
     datum = line.split('|')
@@ -25,6 +26,7 @@ def vMagFilterAndParse(data):
         try:
             vMag = float(datum['vMag'])
             bvColor = float(datum['bvColor'])
+            if bvColor > 2 : continue
         except ValueError:
             # パースに失敗した場合はスキップ
             print(json.dumps(datum))
@@ -45,9 +47,10 @@ def absMagFilterAndParse(data):
             vMag = float(datum['vMag'])
             parallax = float(datum['parallax'])
             bvColor = float(datum['bvColor'])
-            # parsec = calc.parallax_to_parsec(parallax)
-            # absMag = calc.abs_mag_by_parsec(vMag, parsec)
-            absMag = calc.parallax_to_abs_mag(vMag, parallax)
+            parsec = calc.parallax_to_parsec(parallax)
+            absMag = calc.abs_mag_by_parsec(vMag, parsec)
+            # absMag = calc.parallax_to_abs_mag(vMag, parallax)
+            if bvColor > 2 : continue
         except ValueError:
             # パースに失敗した場合はスキップ
             # print('value error : ' + json.dumps(datum))
@@ -64,8 +67,8 @@ def absMagFilterAndParse(data):
 
 if __name__ == '__main__':
     data = hip.fileIn(lineToDatum, '../data/hip_main.dat')
-    # vmagData = vMagFilterAndParse(data)
-    # hip.jsonFileOut('../data/vmag_scatter-plot.json', vmagData)
+    vmagData = vMagFilterAndParse(data)
+    hip.jsonFileOut('../data/vmag_scatter-plot.json', vmagData)
     absMagData = absMagFilterAndParse(data)
     hip.jsonFileOut('../data/absmag_scatter-plot.json', absMagData)
 

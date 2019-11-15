@@ -10,7 +10,7 @@
 
 <body>
     <script>
-        var width = 1200;
+        var width = 1600;
         var height = 800;
         var margin = { "top": 45, "bottom": 45, "right": 45, "left": 75 };
 
@@ -22,10 +22,10 @@
         .then(function (catalogue) {
             // 3. スケールの設定
             var xScale = d3.scaleLinear()
-                .domain([d3.min(catalogue.data, function (d) { return d.bvColor; }) - 1, d3.max(catalogue.data, function (d) { return d.bvColor; })])
+                .domain([d3.min(catalogue.data, function (d) { return d.bvColor; }), d3.max(catalogue.data, function (d) { return d.bvColor; })])
                 .range([margin.left, width - margin.right]);
             var yScale = d3.scaleLinear()
-                .domain([d3.min(catalogue.data, function (d) { return d.vMag; }) - 1, d3.max(catalogue.data, function (d) { return d.vMag; })])
+                .domain([d3.min(catalogue.data, function (d) { return d.vMag; }), d3.max(catalogue.data, function (d) { return d.vMag; })])
                 .range([height - margin.bottom, margin.top]);
 
             // 4. スケールの表示
@@ -65,8 +65,8 @@
                 .attr("cx", function (d) { return xScale(d.bvColor); })
                 .attr("cy", function (d) { return yScale(d.vMag); })
                 .attr("fill", "steelblue")
-                .attr("opacity", 0.02)
-                .attr("r", 2);
+                .attr("opacity", 0.2)
+                .attr("r", 1);
         }).catch(function(error){
             if (error != null) throw error;
         });

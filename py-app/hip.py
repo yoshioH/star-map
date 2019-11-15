@@ -2,7 +2,7 @@
 import os
 import json
 
-MAGNITUDE_LOWER_LIMIT = 7.0
+MAGNITUDE_LOWER_LIMIT = 15.0
 
 def lineToDatum(line):
     datum = line.split('|')

@@ -10,25 +10,25 @@
 
 <body>
     <script>
-        var width = 1200;
+        var width = 1600;
         var height = 800;
         var margin = { "top": 45, "bottom": 45, "right": 45, "left": 75 };
 
-        // 2. SVG領域の設定
+        // SVG領域の設定
         var svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
 
         // 座標にマッピング
         d3.json("data/absmag_scatter-plot.json")
         .then(function (catalogue) {
-            // 3. スケールの設定
+            // スケールの設定
             var xScale = d3.scaleLinear()
-                .domain([d3.min(catalogue.data, function (d) { return d.bvColor; }) - 1, d3.max(catalogue.data, function (d) { return d.bvColor; })])
+                .domain([d3.min(catalogue.data, function (d) { return d.bvColor; }), d3.max(catalogue.data, function (d) { return d.bvColor; })])
                 .range([margin.left, width - margin.right]);
             var yScale = d3.scaleLinear()
-                .domain([d3.min(catalogue.data, function (d) { return d.absMag; }) - 1, d3.max(catalogue.data, function (d) { return d.absMag; })])
+                .domain([d3.max(catalogue.data, function (d) { return d.absMag; }), d3.min(catalogue.data, function (d) { return d.absMag; })])
                 .range([height - margin.bottom, margin.top]);
 
-            // 4. スケールの表示
+            // スケールの表示
             var axisx = d3.axisBottom(xScale).ticks(5);
             var axisy = d3.axisLeft(yScale).ticks(5);
             svg.append("g")
@@ -65,8 +65,10 @@
                 .attr("cx", function (d) { return xScale(d.bvColor); })
                 .attr("cy", function (d) { return yScale(d.absMag); })
                 .attr("fill", "steelblue")
-                .attr("opacity", 0.02)
-                .attr("r", 2);
+                .attr("opacity", 0.2)
+                .attr("r", 1);
+                // .attr("opacity", 0.05)
+                // .attr("r", 2);
         }).catch(function(error){
             if (error != null) throw error;
         });
