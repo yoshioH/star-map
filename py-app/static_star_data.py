@@ -1,3 +1,11 @@
+Sun = {
+    'vMag' : -26.75,
+    'absMag': 4.82,
+    'parallax' : 0,
+    'bvColor': 0.65,
+    'name':'Sun',
+    'type_name':'主系列星'
+}
 Spica = {
     'vMag' : 0.97,
     'absMag': -3.5,
@@ -38,7 +46,7 @@ Betelgeuse = {
     'name':'Betelgeuse',
     'type_name':'赤色超巨星'
 }
-Betelgeuse = {
+Pollux = {
     'vMag' : 1.14,
     'absMag': 1.1,
     'parallax' : 96.54,
@@ -47,3 +55,11 @@ Betelgeuse = {
     'type_name':'巨星'
 }
 
+ALL_LIST = list()
+ALL_LIST.append(Sun)
+ALL_LIST.append(Spica)
+ALL_LIST.append(SiriusA)
+ALL_LIST.append(SiriusB)
+ALL_LIST.append(Aldebaran)
+ALL_LIST.append(Betelgeuse)
+ALL_LIST.append(Pollux)
