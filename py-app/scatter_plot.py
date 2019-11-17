@@ -4,7 +4,6 @@ import json
 
 import calc
 import hip
-import static-star-data
 
 def lineToDatum(line):
     datum = line.split('|')
