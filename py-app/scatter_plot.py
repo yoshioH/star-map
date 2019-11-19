@@ -5,18 +5,6 @@ import json
 import calc
 import hip
 
-def lineToDatum(line):
-    datum = line.split('|')
-    tmp = {
-        'hipNum' : datum[1].strip(),
-        'vMag' : datum[5].strip(),
-        'raDeg' : datum[8].strip(),
-        'decDeg' : datum[9].strip(),
-        'parallax' : datum[11].strip(),
-        'bvColor' : datum[37].strip()
-    }
-    return tmp
-
 def vMagFilterAndParse(data):
     ret = list()
     for datum in data:
@@ -65,7 +53,7 @@ def absMagFilterAndParse(data):
     return ret
 
 if __name__ == '__main__':
-    data = hip.fileIn(lineToDatum, '../data/hip_main.dat')
+    data = hip.fileIn(hip.lineToDatum, '../data/hip_main.dat')
     vmagData = vMagFilterAndParse(data)
     hip.jsonFileOut('../data/vmag_scatter-plot.json', vmagData)
     absMagData = absMagFilterAndParse(data)

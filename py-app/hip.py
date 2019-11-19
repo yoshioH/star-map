@@ -55,10 +55,13 @@ def filterAndParse(data):
         ret.append(tmp)
     return ret
 
-def jsonFileOut(dstPath, data):
+def jsonFileOut(dstPath, data, options = None):
     with open(dstPath, mode='w') as f:
         f.write('{"data":')
         f.write(json.dumps(data))
+        if options is None:
+            f.write(', "options":')
+            f.write(json.dumps(options))
         f.write('}')
 
 if __name__ == '__main__':

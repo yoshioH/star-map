@@ -26,6 +26,15 @@ def abs_mag_by_parsec(mag, distance):
 def parallax_to_parsec(parallax):
     return 1000 / parallax
 
+# 時分秒から度に変換する(赤経変換用)
+def hms_to_degree(hour = 0.0, min = 0.0, sec = 0.0):
+    tmp = (((sec / 60) + min) / 60) + hour
+    return tmp * 15
+
+# 度分秒から度に変換する(赤緯変換用)
+def dms_to_degree(deg = 0.0, min = 0.0, sec = 0.0):
+    return ((sec / 60) + min) / 60 + deg
+
 # abst magnitude
 absMag = parallax_to_abs_mag(hipdata['vMag'], hipdata['parallax'])
 print(absMag)
@@ -33,3 +42,5 @@ print(absMag)
 distance = parallax_to_parsec(hipdata['parallax'])
 absMag = abs_mag_by_parsec(hipdata['vMag'], distance)
 print(absMag)
+
+

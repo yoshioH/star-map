@@ -1,3 +1,5 @@
+import calc
+
 Sun = {
     'vMag' : -26.75,
     'absMag': 4.82,
@@ -63,3 +65,16 @@ ALL_LIST.append(SiriusB)
 ALL_LIST.append(Aldebaran)
 ALL_LIST.append(Betelgeuse)
 ALL_LIST.append(Pollux)
+
+Ngc188 = {
+    'ra': calc.hms_to_degree(0, 48, 26),
+    'dec':calc.dms_to_degree(85, 15, 18),
+    'apparentRadius': calc.dms_to_degree(0, 15, 0)
+}
+
+M67 = {
+    'ra': calc.hms_to_degree(8, 51, 18),
+    'dec':calc.dms_to_degree(11, 48, 0),
+    'apparentRadius': calc.dms_to_degree(0, 25, 0) # 視直径ではなく計算しやすい視半径
+}
+
