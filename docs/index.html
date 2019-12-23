@@ -17,9 +17,9 @@ path
 
 <body class="base">
 <h1 style="color:azure">Stereographic Star Map</h1>
-<script src="/scripts/d3.v3.min.js"></script>
-<script src="/scripts/d3.geo.projection.v0.min.js"></script>
-<script src="/scripts/topojson.v1.min.js"></script>
+<script src="./d3.v3.min.js"></script>
+<script src="./d3.geo.projection.v0.min.js"></script>
+<script src="./topojson.v1.min.js"></script>
 
 <script>
 
@@ -85,7 +85,7 @@ var pointColor = function(d)
     return "rgba("+r+","+g+","+b+"," + Math.pow(d[2]['vMag'], -0.7) + ")";
 }
 // 座標にマッピング
-d3.json("../data/hip_undermag4.json", function(error, catalogue) 
+d3.json("./hip_undermag4.json", function(error, catalogue) 
 {
    if (error) throw error;
     // console.log(JSON.stringify(catalogue));
